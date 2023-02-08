@@ -32,6 +32,9 @@ const EditableAdaptiveForm = (props) => {
                 thankYouMessage.setAttribute("class", "tyMessage");
                 thankYouMessage.innerHTML = body.thankYouMessage;
                 formContainerElement.replaceWith(thankYouMessage);
+            } else {
+                // if anything else, then it should be an error
+                window.alert("Error during form submission"); // todo localize this
             }
         }
     }, "submitSuccess");
