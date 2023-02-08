@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/etc.clientlibs/wknd-spa-react-latest/clientlibs/clientlib-react/resources/static/css/main.21540bc2.chunk.css",
-    "main.js": "/etc.clientlibs/wknd-spa-react-latest/clientlibs/clientlib-react/resources/static/js/main.4183902f.chunk.js",
-    "main.js.map": "/etc.clientlibs/wknd-spa-react-latest/clientlibs/clientlib-react/resources/static/js/main.4183902f.chunk.js.map",
+    "main.js": "/etc.clientlibs/wknd-spa-react-latest/clientlibs/clientlib-react/resources/static/js/main.c6470d37.chunk.js",
+    "main.js.map": "/etc.clientlibs/wknd-spa-react-latest/clientlibs/clientlib-react/resources/static/js/main.c6470d37.chunk.js.map",
     "runtime-main.js": "/etc.clientlibs/wknd-spa-react-latest/clientlibs/clientlib-react/resources/static/js/runtime-main.bbd83057.js",
     "runtime-main.js.map": "/etc.clientlibs/wknd-spa-react-latest/clientlibs/clientlib-react/resources/static/js/runtime-main.bbd83057.js.map",
-    "static/js/2.8446f4b7.chunk.js": "/etc.clientlibs/wknd-spa-react-latest/clientlibs/clientlib-react/resources/static/js/2.8446f4b7.chunk.js",
-    "static/js/2.8446f4b7.chunk.js.map": "/etc.clientlibs/wknd-spa-react-latest/clientlibs/clientlib-react/resources/static/js/2.8446f4b7.chunk.js.map",
+    "static/js/2.b6888430.chunk.js": "/etc.clientlibs/wknd-spa-react-latest/clientlibs/clientlib-react/resources/static/js/2.b6888430.chunk.js",
+    "static/js/2.b6888430.chunk.js.map": "/etc.clientlibs/wknd-spa-react-latest/clientlibs/clientlib-react/resources/static/js/2.b6888430.chunk.js.map",
     "index.html": "/etc.clientlibs/wknd-spa-react-latest/clientlibs/clientlib-react/resources/index.html",
     "static/css/main.21540bc2.chunk.css.map": "/etc.clientlibs/wknd-spa-react-latest/clientlibs/clientlib-react/resources/static/css/main.21540bc2.chunk.css.map",
-    "static/js/2.8446f4b7.chunk.js.LICENSE.txt": "/etc.clientlibs/wknd-spa-react-latest/clientlibs/clientlib-react/resources/static/js/2.8446f4b7.chunk.js.LICENSE.txt"
+    "static/js/2.b6888430.chunk.js.LICENSE.txt": "/etc.clientlibs/wknd-spa-react-latest/clientlibs/clientlib-react/resources/static/js/2.b6888430.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.bbd83057.js",
-    "static/js/2.8446f4b7.chunk.js",
+    "static/js/2.b6888430.chunk.js",
     "static/css/main.21540bc2.chunk.css",
-    "static/js/main.4183902f.chunk.js"
+    "static/js/main.c6470d37.chunk.js"
   ]
 }

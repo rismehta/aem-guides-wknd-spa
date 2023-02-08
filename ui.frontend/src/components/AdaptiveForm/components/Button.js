@@ -11,12 +11,14 @@ const ButtonComponent = ({
                              enabled,
                              className,
                              properties,
+                             visible
                          }) => {
 
     const handleClick = (event) => {
         onClick(event);
     };
-    return (
+    const isVisible = typeof visible === 'undefined' || visible;
+    return isVisible ? (
         <Button
             size="md"
             height="48px"
@@ -31,17 +33,17 @@ const ButtonComponent = ({
         >
             {label.value}
         </Button>
-    );
+    ) : null;
 };
 
 // adaptive form button wrapper
 // abstract business logic to interact with adaptive form rules
-const ButtonCompWrapper = props => {
+const AFButtonComp = props => {
     const {isInEditor} = props;
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [state, handlers] = useRuleEngine(props);
-    let convertedProps = state; // we add some default values in the model which is required here
+    let convertedProps = {...props}; // we add some default values in the model which is required here
     if (!isInEditor) {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const [state, handlers] = useRuleEngine(props);
         // don't add form change or blur listeners in authoring, so that AEM listeners work
         convertedProps = {
             onClick: handlers.dispatchClick,
@@ -53,16 +55,16 @@ const ButtonCompWrapper = props => {
     );
 }
 
-const ButtonEditConfig = {
-    emptyLabel: 'Button',
-    isEmpty: function (props) {
-        return !props;
-    }
-};
 
 // editable button
 // abstracts business logic to interact with aem editor
 const EditableButton = (props) => {
+    const ButtonEditConfig = {
+        emptyLabel: 'Button',
+        isEmpty: function (props) {
+            return !props;
+        }
+    };
     let isInEditor = AuthoringUtils.isInEditor();
     const newProps = {
         isInEditor,
@@ -70,7 +72,7 @@ const EditableButton = (props) => {
     };
     return (
         <EditableComponent config={ButtonEditConfig} {...newProps}>
-            <ButtonCompWrapper {...newProps} />
+            <AFButtonComp {...newProps} />
         </EditableComponent>
     );
 };

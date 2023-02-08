@@ -125,8 +125,8 @@ const TextFieldComponent = (props) => {
             showPassword={inputType === "password" ? !!show : true}
         />
     );
-
-    return props.visible ? (
+    const isVisible = typeof props.visible === 'undefined' || props.visible;
+    return isVisible ? (
         <FormControl isInvalid={error} mb={30}>
             <FormLabel htmlFor={id}>
                 {label.value} {label.value && required ? "*" : ""}
@@ -144,13 +144,13 @@ const TextFieldComponent = (props) => {
 };
 
 
-
-const TextFieldComp = props => {
+// adaptive form specific text field
+const AFTextFieldComp = props => {
     const {isInEditor} = props;
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [state, handlers] = useRuleEngine(props);
-    let convertedProps = state; // we add some default values in the model which is required here
+    let convertedProps = {...props}; // we add some default values in the model which is required here
     if (!isInEditor) {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const [state, handlers] = useRuleEngine(props);
         // don't add form change or blur listeners in authoring, so that AEM listeners work
         convertedProps = {
             onChange: handlers.dispatchChange,
@@ -163,14 +163,14 @@ const TextFieldComp = props => {
     );
 }
 
-const TextFieldEditConfig = {
-    emptyLabel: 'Text Field',
-    isEmpty: function (props) {
-        return !props;
-    }
-};
-
+// editable text field
 const EditableTextField = (props) => {
+    const TextFieldEditConfig = {
+        emptyLabel: 'Text Field',
+        isEmpty: function (props) {
+            return !props;
+        }
+    };
     let isInEditor = AuthoringUtils.isInEditor();
     const newProps = {
         isInEditor,
@@ -178,7 +178,7 @@ const EditableTextField = (props) => {
     };
     return (
         <EditableComponent config={TextFieldEditConfig} {...newProps}>
-            <TextFieldComp {...newProps} />
+            <AFTextFieldComp {...newProps} />
         </EditableComponent>
     );
 };

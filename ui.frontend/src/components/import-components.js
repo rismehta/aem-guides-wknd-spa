@@ -21,3 +21,4 @@ import './AdaptiveForm/AdaptiveForm';
 import './AdaptiveForm/components/TextField';
 import './AdaptiveForm/components/Panel';
 import './AdaptiveForm/components/Button';
+import './AdaptiveForm/components/DropDown';
