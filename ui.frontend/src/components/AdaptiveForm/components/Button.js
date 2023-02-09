@@ -1,8 +1,9 @@
 import { Button } from "@chakra-ui/react";
 import React from "react";
 import { MapTo } from "@adobe/aem-react-editable-components";
-import { withButtonRuleEngineHook } from '../RuleEngineHook';
+import { withRuleEngine } from '../RuleEngineHook';
 
+// Customer's component
 class ButtonComponent extends React.Component {
   handleClick(event) {
     this.props.onClick(event);
@@ -29,11 +30,17 @@ class ButtonComponent extends React.Component {
   }
 }
 
-const EditableButton = withButtonRuleEngineHook(ButtonComponent);
+// wrapper component for props's mapping
+const ButtonComponentWrapper = (props) => {
+  const { handlers, ...restProps } = props;
+  return <ButtonComponent {...restProps} onClick={handlers.dispatchClick} />
+}
+// to get updated props
+const AdaptiveFormButton = withRuleEngine(ButtonComponentWrapper);
 const ButtonEditConfig = {
   emptyLabel: 'Button',
   isEmpty: function (props) {
     return !props;
   }
 };
-export default MapTo('wknd-spa-react-latest/components/adaptiveForm/button')(EditableButton, ButtonEditConfig);
+export default MapTo('wknd-spa-react-latest/components/adaptiveForm/button')(AdaptiveFormButton, ButtonEditConfig);

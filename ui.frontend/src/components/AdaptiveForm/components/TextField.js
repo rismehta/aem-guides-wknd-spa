@@ -1,10 +1,9 @@
 import React from 'react';
 import { Input, FormControl, FormLabel, Text, Tooltip, InputGroup, InputRightElement, Button } from '@chakra-ui/react';
 import { MapTo } from "@adobe/aem-react-editable-components";
-import { AuthoringUtils } from "@adobe/aem-spa-page-model-manager";
-import { withRuleEngineHook } from '../RuleEngineHook';
+import { withRuleEngine } from '../RuleEngineHook';
 
-
+// Customer's component
 class InputGroupWrapper extends React.Component {
   render() {
     const {
@@ -133,20 +132,17 @@ class TextFieldComponent extends React.Component {
   }
 }
 
-const AFTextFieldComp = withRuleEngineHook(TextFieldComponent);
-
-// editable text field
-class EditableTextField extends React.Component {
-  render() {
-    const isInEditor = AuthoringUtils.isInEditor();
-    return <AFTextFieldComp isInEditor={isInEditor} {...this.props} />
-  }
+// wrapper component for props's mapping
+const TextFieldComponentWrapper = (props) => {
+  const { handlers, ...restProps } = props;
+  return <TextFieldComponent {...restProps} onChange={handlers.dispatchChange} onBlur={handlers.dispatchChange} />
 }
+// to get updated props
+const AdaptiveTextField = withRuleEngine(TextFieldComponentWrapper);
 const TextFieldEditConfig = {
   emptyLabel: 'Text Field',
   isEmpty: function (props) {
     return !props;
   }
 };
-
-export default MapTo('wknd-spa-react-latest/components/adaptiveForm/textinput')(EditableTextField, TextFieldEditConfig);
+export default MapTo('wknd-spa-react-latest/components/adaptiveForm/textinput')(AdaptiveTextField, TextFieldEditConfig);

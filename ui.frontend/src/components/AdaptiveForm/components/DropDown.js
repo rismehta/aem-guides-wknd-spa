@@ -1,8 +1,9 @@
 import React from "react";
 import { Select, Text, FormControl, FormLabel } from "@chakra-ui/react";
 import { MapTo } from "@adobe/aem-react-editable-components";
-import { withDropDownRuleEngineHook } from '../RuleEngineHook';
+import { withRuleEngine } from '../RuleEngineHook';
 
+// Customer's component
 class DropDownComponent extends React.Component {
   changeHandler(event) {
     this.props.onChange(parseInt(event.target.value));
@@ -30,11 +31,18 @@ class DropDownComponent extends React.Component {
   }
 };
 
-const EditableDropDown = withDropDownRuleEngineHook(DropDownComponent);
+// wrapper component for props's mapping
+const DropDownComponentWrapper = (props) => {
+  const { handlers, ...restProps } = props;
+  const selectedKey = props?.value != null ? props.value + "" : props.value
+  return <DropDownComponent {...restProps} selectedKey={selectedKey} onChange={handlers.dispatchChange} />
+}
+// to get updated props
+const AdaptiveDropDown = withRuleEngine(DropDownComponentWrapper);
 const DropDownEditConfig = {
   emptyLabel: 'Drop Down',
   isEmpty: function (props) {
     return !props;
   }
 };
-export default MapTo('wknd-spa-react-latest/components/adaptiveForm/dropdown')(EditableDropDown, DropDownEditConfig);
+export default MapTo('wknd-spa-react-latest/components/adaptiveForm/dropdown')(AdaptiveDropDown, DropDownEditConfig);
