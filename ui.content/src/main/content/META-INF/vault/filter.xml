@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workspaceFilter version="1.0">
+    <filter root="/conf/wknd-spa-react-latest" mode="merge"/>
+    <filter root="/content/wknd-spa-react-latest" mode="merge"/>
+    <filter root="/content/dam/wknd-spa-react-latest" mode="merge">
+        <exclude pattern="/content/dam/wknd-spa-react-latest(/.*)?"/>
+        <include pattern="/content/dam/wknd-spa-react-latest/jcr:content(/.*)?"/>
+    </filter>
+    <filter root="/content/dam/wknd-spa-react-latest/asset.jpg" mode="merge"/>
+    <filter root="/content/experience-fragments/wknd-spa-react-latest" mode="merge"/>
+</workspaceFilter>
