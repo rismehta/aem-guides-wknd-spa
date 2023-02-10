@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapTo, ResponsiveGrid } from '@adobe/aem-react-editable-components';
+import {MapTo, ResponsiveGrid} from '@adobe/aem-react-editable-components';
 import { createFormInstance } from '@aemforms/af-core';
 import { FormContext } from '@aemforms/af-react-renderer';
 
@@ -13,17 +13,20 @@ const FormContainerEditConfig = {
 
 // eslint-disable-next-line react/prefer-stateless-function
 class AdaptiveFormContainer extends React.Component {
+  /*
   constructor(props) {
     super(props);
     // const { model } = props;
     // create runtime form state from json
-    const model = { ...props };
+  }
+  */
+
+  render() {
+    const newProps = this.props;
+    const model = { ...newProps };
     this.form = createFormInstance(model);
     this.state = { model: this.form.getState() };
-  }
-
-  componentDidMount() {
-    const formPath = this?.state?.model?.properties?.['fd:path'];
+    const formPath = this.state?.model?.properties?.['fd:path'];
     // submit success handler
     this.form.subscribe((action) => {
       const body = action.payload?.body;
@@ -48,10 +51,6 @@ class AdaptiveFormContainer extends React.Component {
       const defaultSubmissionError = 'Error during form submission'; // todo localize this
       window.alert(defaultSubmissionError);
     }, 'submitError');
-  }
-
-  render() {
-    const formPath = this.state?.model?.properties?.['fd:path'];
     return (
         <FormContext.Provider value={{ form: this.form, modelId: this.form.getUniqueId() }}>
           <form data-cmp-path={formPath} data-cmp-is="adaptiveFormContainer">
