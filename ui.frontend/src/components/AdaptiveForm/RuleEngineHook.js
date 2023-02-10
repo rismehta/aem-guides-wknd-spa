@@ -2,6 +2,8 @@ import React from 'react';
 import { useRuleEngine } from '@aemforms/af-react-renderer';
 import { AuthoringUtils } from "@adobe/aem-spa-page-model-manager";
 
+
+// Wrapper over useRuleEngine hook to interact with adaptive form sdk
 export function withRuleEngine(Component) {
   return function WrappedComponent(props) {
     const { isInEditor } = props;

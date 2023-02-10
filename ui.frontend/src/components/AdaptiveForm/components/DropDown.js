@@ -6,7 +6,7 @@ import { withRuleEngine } from '../RuleEngineHook';
 // Customer's component
 class DropDownComponent extends React.Component {
   changeHandler = (event) => {
-    this.props.onChange(parseInt(event.target.value));
+    this.props?.onChange(parseInt(event.target.value));
   }
   render() {
     const { label, id, required, enumNames, enum: enums, visible, errorMessage } = this.props;
@@ -31,12 +31,13 @@ class DropDownComponent extends React.Component {
   }
 };
 
-// wrapper component for props's mapping
-class DropDownComponentWrapper extends React.Component {
+// wrapper component to wrap adaptive form capabilities
+class AdaptiveFormDropDown extends React.Component {
   render() {
+    // during authoring, handlers won't be available to avoid overlap of editor and AF functionalities
     const { handlers, ...restProps } = this.props;
     const selectedKey = this.props?.value != null ? this.props.value + "" : this.props.value
-    return <DropDownComponent {...restProps} selectedKey={selectedKey} onChange={handlers.dispatchChange} />
+    return <DropDownComponent {...restProps} selectedKey={selectedKey} onChange={handlers?.dispatchChange} />
   }
 }
 const DropDownEditConfig = {
@@ -45,4 +46,4 @@ const DropDownEditConfig = {
     return !props;
   }
 };
-export default MapTo('wknd-spa-react-latest/components/adaptiveForm/dropdown')( withRuleEngine(DropDownComponentWrapper), DropDownEditConfig);
+export default MapTo('wknd-spa-react-latest/components/adaptiveForm/dropdown')( withRuleEngine(AdaptiveFormDropDown), DropDownEditConfig);

@@ -3,7 +3,7 @@ import { MapTo, ResponsiveGrid } from '@adobe/aem-react-editable-components';
 import { createFormInstance } from "@aemforms/af-core";
 import { FormContext } from "@aemforms/af-react-renderer";
 
-class EditableAdaptiveForm extends React.Component {
+class AdaptiveFormContainer extends React.Component {
 
   constructor(props) {
     super(props);
@@ -57,6 +57,7 @@ class EditableAdaptiveForm extends React.Component {
   }
 }
 
+// edit config
 const FormContainerEditConfig = {
   emptyLabel: 'Adaptive Form Container',
   isEmpty: function (params) {
@@ -64,4 +65,4 @@ const FormContainerEditConfig = {
   }
 };
 
-export default MapTo("wknd-spa-react-latest/components/adaptiveForm/formcontainer")(EditableAdaptiveForm, FormContainerEditConfig);
+export default MapTo("wknd-spa-react-latest/components/adaptiveForm/formcontainer")(AdaptiveFormContainer, FormContainerEditConfig);

@@ -88,6 +88,11 @@
     <aemanalyser.version>1.4.10</aemanalyser.version>
             
     <componentGroupName>WKND SPA React Latest</componentGroupName>
+
+    <!-- AEM Forms specific settings -->
+    <core.forms.components.version>2.0.7-spa</core.forms.components.version>
+    <core.forms.components.af.version>2.0.7-spa</core.forms.components.af.version>
+    <aem.forms.sdk.api>2022.12.20.00-220900</aem.forms.sdk.api>
         
   </properties>
       
@@ -1003,6 +1008,62 @@ Bundle-DocURL:
                         
         <version>${core.wcm.components.version}</version>
                     
+      </dependency>
+
+      <!-- AEM Forms Dependencies -->
+
+      <dependency>
+
+        <groupId>com.adobe.aem</groupId>
+
+        <artifactId>aem-forms-sdk-api</artifactId>
+
+        <version>${aem.forms.sdk.api}</version>
+
+      </dependency>
+
+      <dependency>
+
+        <groupId>com.adobe.aem</groupId>
+
+        <artifactId>core-forms-components-apps</artifactId>
+
+        <type>zip</type>
+
+        <version>${core.forms.components.version}</version>
+
+      </dependency>
+
+      <dependency>
+
+        <groupId>com.adobe.aem</groupId>
+
+        <artifactId>core-forms-components-core</artifactId>
+
+        <version>${core.forms.components.version}</version>
+
+      </dependency>
+
+      <dependency>
+
+        <groupId>com.adobe.aem</groupId>
+
+        <artifactId>core-forms-components-af-apps</artifactId>
+
+        <type>zip</type>
+
+        <version>${core.forms.components.af.version}</version>
+
+      </dependency>
+
+      <dependency>
+
+        <groupId>com.adobe.aem</groupId>
+
+        <artifactId>core-forms-components-af-core</artifactId>
+
+        <version>${core.forms.components.af.version}</version>
+
       </dependency>
                   
       <!-- SPA Project Core (includes hierarchy page model) -->

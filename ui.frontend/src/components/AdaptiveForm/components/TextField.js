@@ -86,7 +86,7 @@ class TextFieldComponent extends React.Component {
   };
 
   handleBlur = (event) => {
-    this.props.onBlur(event.target.value);
+    this.props?.onBlur(event.target.value);
   };
 
   render() {
@@ -132,11 +132,11 @@ class TextFieldComponent extends React.Component {
   }
 }
 
-// wrapper component for props's mapping
-class TextFieldComponentWrapper extends React.Component {
+// wrapper component to wrap adaptive form capabilities
+class AdaptiveFormTextInput extends React.Component {
   render() {
     const { handlers, ...restProps } = this.props;
-    return <TextFieldComponent {...restProps} onChange={handlers.dispatchChange} onBlur={handlers.dispatchChange} />
+    return <TextFieldComponent {...restProps} onChange={handlers?.dispatchChange} onBlur={handlers?.dispatchChange} />
   }
 }
 const TextFieldEditConfig = {
@@ -145,4 +145,4 @@ const TextFieldEditConfig = {
     return !props;
   }
 };
-export default MapTo('wknd-spa-react-latest/components/adaptiveForm/textinput')(withRuleEngine(TextFieldComponentWrapper), TextFieldEditConfig);
+export default MapTo('wknd-spa-react-latest/components/adaptiveForm/textinput')(withRuleEngine(AdaptiveFormTextInput), TextFieldEditConfig);

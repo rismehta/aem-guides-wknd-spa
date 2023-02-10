@@ -87,6 +87,17 @@
                             <artifactId>spa.project.core.ui.apps</artifactId>
                             <target>/apps/wknd-spa-react-latest-vendor-packages/application/install</target>
                         </embedded>
+                        <embedded>
+                            <groupId>com.adobe.aem</groupId>
+                            <artifactId>core-forms-components-af-apps</artifactId>
+                            <type>zip</type>
+                            <target>/apps/wknd-spa-react-latest-vendor-packages/application/install</target>
+                        </embedded>
+                        <embedded>
+                            <groupId>com.adobe.aem</groupId>
+                            <artifactId>core-forms-components-af-core</artifactId>
+                            <target>/apps/wknd-spa-react-latest-vendor-packages/application/install</target>
+                        </embedded>
                     </embeddeds>
                 </configuration>
             </plugin>
@@ -205,6 +216,26 @@
             <artifactId>aem-guides-wknd-spa.react.latest.ui.config</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
+        </dependency>
+
+        <!-- AEM Forms Dependencies -->
+        <dependency>
+            <groupId>com.adobe.aem</groupId>
+            <artifactId>core-forms-components-apps</artifactId>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>com.adobe.aem</groupId>
+            <artifactId>core-forms-components-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.adobe.aem</groupId>
+            <artifactId>core-forms-components-af-apps</artifactId>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>com.adobe.aem</groupId>
+            <artifactId>core-forms-components-af-core</artifactId>
         </dependency>
 
         <!-- SPA Project Core (includes hierarchy page) -->

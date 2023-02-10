@@ -14,8 +14,8 @@ class PanelComponent extends React.Component {
   }
 }
 
-// wrapper component for props's mapping
-class PanelComponentWrapper extends React.Component {
+// wrapper component to wrap adaptive form capabilities
+class AdaptiveFormPanel extends React.Component {
   render() {
     const { handlers, ...restProps } = this.props;
     return <PanelComponent {...restProps} />
@@ -28,4 +28,4 @@ const PanelEditConfig = {
     return props.cqItems == null || props.cqItems.length === 0;
   }
 };
-export default MapTo("wknd-spa-react-latest/components/adaptiveForm/panelcontainer")(withRuleEngine(PanelComponentWrapper), PanelEditConfig);
+export default MapTo("wknd-spa-react-latest/components/adaptiveForm/panelcontainer")(withRuleEngine(AdaptiveFormPanel), PanelEditConfig);

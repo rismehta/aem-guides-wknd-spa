@@ -6,7 +6,7 @@ import { withRuleEngine } from '../RuleEngineHook';
 // Customer's component
 class ButtonComponent extends React.Component {
   handleClick = (event) => {
-    this.props.onClick(event);
+    this.props?.onClick(event);
   };
   render() {
     const { label, enabled, className, properties, visible} = this.props;
@@ -30,11 +30,11 @@ class ButtonComponent extends React.Component {
   }
 }
 
-// wrapper component for props's mapping
-class ButtonComponentWrapper extends React.Component {
+// wrapper component to wrap adaptive form capabilities
+class AdaptiveFormButton extends React.Component {
   render() {
     const { handlers, ...restProps } = this.props;
-    return <ButtonComponent {...restProps} onClick={handlers.dispatchClick} />
+    return <ButtonComponent {...restProps} onClick={handlers?.dispatchClick} />
   }
 }
 const ButtonEditConfig = {
@@ -43,4 +43,4 @@ const ButtonEditConfig = {
     return !props;
   }
 };
-export default MapTo('wknd-spa-react-latest/components/adaptiveForm/button')(withRuleEngine(ButtonComponentWrapper), ButtonEditConfig);
+export default MapTo('wknd-spa-react-latest/components/adaptiveForm/button')(withRuleEngine(AdaptiveFormButton), ButtonEditConfig);
