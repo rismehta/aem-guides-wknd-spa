@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { SimpleGrid } from '@chakra-ui/react';
 import React from 'react';
-import {MapTo, ResponsiveGrid, withComponentMappingContext} from '@adobe/aem-react-editable-components';
+import {MapTo, ResponsiveGrid} from '@adobe/aem-react-editable-components';
 import { withRuleEngine } from '../RuleEngineHook';
 
 const PanelEditConfig = {
@@ -31,4 +31,4 @@ class AdaptiveFormPanel extends React.Component {
     return <PanelComponent {...restProps} />;
   }
 }
-export default MapTo('wknd-spa-react-latest/components/adaptiveForm/panelcontainer')(withComponentMappingContext(withRuleEngine(AdaptiveFormPanel)), PanelEditConfig);
+export default MapTo('wknd-spa-react-latest/components/adaptiveForm/panelcontainer')(withRuleEngine(AdaptiveFormPanel), PanelEditConfig);
