@@ -5,7 +5,7 @@ import { withRuleEngine } from '../RuleEngineHook';
 
 // Customer's component
 class DropDownComponent extends React.Component {
-  changeHandler(event) {
+  changeHandler = (event) => {
     this.props.onChange(parseInt(event.target.value));
   }
   render() {

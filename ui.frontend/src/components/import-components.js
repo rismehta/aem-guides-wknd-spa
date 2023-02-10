@@ -18,6 +18,11 @@ import withAsyncImport from "../utils/withAsyncImport";
 import './Page/Page';
 import './Container/Container';
 import './ExperienceFragment/ExperienceFragment';
+import './AdaptiveForm/AdaptiveForm';
+import './AdaptiveForm/components/Button';
+import './AdaptiveForm/components/DropDown';
+import './AdaptiveForm/components/Panel';
+import './AdaptiveForm/components/TextField';
 
 import {MapTo} from '@adobe/aem-react-editable-components';
 

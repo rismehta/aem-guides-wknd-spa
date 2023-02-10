@@ -40,11 +40,11 @@ class TextFieldComponent extends React.Component {
     };
   }
 
-  handleClick() {
-    setState((prevState) => ({ show: !prevState.show }));
+  handleClick = () => {
+    this.setState((prevState) => ({ show: !prevState.show }));
   }
 
-  keyChangeFn(event) {
+  keyChangeFn = (event) => {
     const { format, properties, onChange } = this.props;
     let thisVal = event?.target?.value;
     const textValLen = thisVal?.length;
@@ -72,7 +72,7 @@ class TextFieldComponent extends React.Component {
     onChange(thisVal);
   };
 
-  handleChange(event) {
+  handleChange = (event) => {
     const { maxLength } = this.props;
     let thisVal = event.target.value;
     if (maxLength && thisVal.length === maxLength + 1) {
@@ -81,11 +81,11 @@ class TextFieldComponent extends React.Component {
     this.keyChangeFn(event);
   };
 
-  handleKeyDown(event) {
+  handleKeyDown = (event) => {
     this.keyChangeFn(event);
   };
 
-  handleBlur(event) {
+  handleBlur = (event) => {
     this.props.onBlur(event.target.value);
   };
 

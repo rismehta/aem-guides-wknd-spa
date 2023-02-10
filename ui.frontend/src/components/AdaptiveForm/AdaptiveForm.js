@@ -7,8 +7,9 @@ class EditableAdaptiveForm extends React.Component {
 
   constructor(props) {
     super(props);
-    const { model } = props;
+    //const { model } = props;
     // create runtime form state from json
+    let model = {...props};
     this.form = createFormInstance(model);
     this.state = { model: this.form.getState() };
   }
@@ -49,7 +50,7 @@ class EditableAdaptiveForm extends React.Component {
           data-cmp-path={formPath}
           data-cmp-is="adaptiveFormContainer">
           {this.state?.model?.label?.value ? <h2>{this.state.model.label.value}</h2> : null}
-          <ResponsiveGrid config={FormContainerEditConfig} {...this.state} />
+          <ResponsiveGrid config={FormContainerEditConfig} {...this.state.model} />
         </form>
       </FormContext.Provider>
     )

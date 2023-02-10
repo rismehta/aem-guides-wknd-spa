@@ -5,11 +5,11 @@ import { withRuleEngine } from '../RuleEngineHook';
 
 // Customer's component
 class ButtonComponent extends React.Component {
-  handleClick(event) {
+  handleClick = (event) => {
     this.props.onClick(event);
   };
   render() {
-    const { label, enabled, className, properties, visible } = this.props;
+    const { label, enabled, className, properties, visible} = this.props;
     const isVisible = typeof visible === 'undefined' || visible;
     return isVisible ? (
       <Button
@@ -18,7 +18,7 @@ class ButtonComponent extends React.Component {
         width={properties?.marginTnB === false ? "25%" : "100%"}
         border="2px"
         colorScheme="blue"
-        onClick={handleClick}
+        onClick={this.handleClick}
         className={className}
         disabled={!enabled}
         mt={properties?.marginTnB === false ? "0" : "30"}

@@ -7,6 +7,7 @@ export function withRuleEngine(Component) {
     const { isInEditor } = props;
     let convertedProps = { ...props };
     if (!isInEditor) {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       const [state, handlers] = useRuleEngine(props);
       convertedProps = {
         ...convertedProps,
