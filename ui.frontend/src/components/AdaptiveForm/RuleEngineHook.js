@@ -1,7 +1,6 @@
 import React from 'react';
 import { useRuleEngine } from '@aemforms/af-react-renderer';
-import { AuthoringUtils } from "@adobe/aem-spa-page-model-manager";
-
+import { AuthoringUtils } from '@adobe/aem-spa-page-model-manager';
 
 // Wrapper over useRuleEngine hook to interact with adaptive form sdk
 export function withRuleEngine(Component) {
@@ -14,11 +13,11 @@ export function withRuleEngine(Component) {
       convertedProps = {
         ...convertedProps,
         ...state,
-        handlers
-      }
+        handlers,
+      };
     }
     const isInEditorUpdated = AuthoringUtils.isInEditor();
     const visible = typeof convertedProps.visible === 'undefined' || convertedProps.visible;
     return visible ? <Component isInEditor={isInEditorUpdated} {...convertedProps} /> : null;
-  }
-};
+  };
+}
