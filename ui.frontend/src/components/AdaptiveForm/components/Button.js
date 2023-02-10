@@ -37,12 +37,10 @@ class ButtonComponentWrapper extends React.Component {
     return <ButtonComponent {...restProps} onClick={handlers.dispatchClick} />
   }
 }
-// to get updated props
-const AdaptiveFormButton = withRuleEngine(ButtonComponentWrapper);
 const ButtonEditConfig = {
   emptyLabel: 'Button',
   isEmpty: function (props) {
     return !props;
   }
 };
-export default MapTo('wknd-spa-react-latest/components/adaptiveForm/button')(AdaptiveFormButton, ButtonEditConfig);
+export default MapTo('wknd-spa-react-latest/components/adaptiveForm/button')(withRuleEngine(ButtonComponentWrapper), ButtonEditConfig);

@@ -139,12 +139,10 @@ class TextFieldComponentWrapper extends React.Component {
     return <TextFieldComponent {...restProps} onChange={handlers.dispatchChange} onBlur={handlers.dispatchChange} />
   }
 }
-// to get updated props
-const AdaptiveTextField = withRuleEngine(TextFieldComponentWrapper);
 const TextFieldEditConfig = {
   emptyLabel: 'Text Field',
   isEmpty: function (props) {
     return !props;
   }
 };
-export default MapTo('wknd-spa-react-latest/components/adaptiveForm/textinput')(AdaptiveTextField, TextFieldEditConfig);
+export default MapTo('wknd-spa-react-latest/components/adaptiveForm/textinput')(withRuleEngine(TextFieldComponentWrapper), TextFieldEditConfig);

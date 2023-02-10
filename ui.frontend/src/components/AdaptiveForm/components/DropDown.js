@@ -39,12 +39,10 @@ class DropDownComponentWrapper extends React.Component {
     return <DropDownComponent {...restProps} selectedKey={selectedKey} onChange={handlers.dispatchChange} />
   }
 }
-// to get updated props
-const AdaptiveDropDown = withRuleEngine(DropDownComponentWrapper);
 const DropDownEditConfig = {
   emptyLabel: 'Drop Down',
   isEmpty: function (props) {
     return !props;
   }
 };
-export default MapTo('wknd-spa-react-latest/components/adaptiveForm/dropdown')(AdaptiveDropDown, DropDownEditConfig);
+export default MapTo('wknd-spa-react-latest/components/adaptiveForm/dropdown')( withRuleEngine(DropDownComponentWrapper), DropDownEditConfig);

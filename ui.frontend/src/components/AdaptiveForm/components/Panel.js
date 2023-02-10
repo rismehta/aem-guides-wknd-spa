@@ -21,8 +21,6 @@ class PanelComponentWrapper extends React.Component {
     return <PanelComponent {...restProps} />
   }
 }
-// to get updated props
-const AdaptivePanel = withRuleEngine(PanelComponentWrapper);
 
 const PanelEditConfig = {
   emptyLabel: 'Adaptive Form Panel',
@@ -30,4 +28,4 @@ const PanelEditConfig = {
     return props.cqItems == null || props.cqItems.length === 0;
   }
 };
-export default MapTo("wknd-spa-react-latest/components/adaptiveForm/panelcontainer")(AdaptivePanel, PanelEditConfig);
+export default MapTo("wknd-spa-react-latest/components/adaptiveForm/panelcontainer")(withRuleEngine(PanelComponentWrapper), PanelEditConfig);
