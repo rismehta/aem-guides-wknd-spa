@@ -31,9 +31,11 @@ class ButtonComponent extends React.Component {
 }
 
 // wrapper component for props's mapping
-const ButtonComponentWrapper = (props) => {
-  const { handlers, ...restProps } = props;
-  return <ButtonComponent {...restProps} onClick={handlers.dispatchClick} />
+class ButtonComponentWrapper extends React.Component {
+  render() {
+    const { handlers, ...restProps } = this.props;
+    return <ButtonComponent {...restProps} onClick={handlers.dispatchClick} />
+  }
 }
 // to get updated props
 const AdaptiveFormButton = withRuleEngine(ButtonComponentWrapper);

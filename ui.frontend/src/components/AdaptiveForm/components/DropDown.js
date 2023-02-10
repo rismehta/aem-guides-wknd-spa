@@ -32,10 +32,12 @@ class DropDownComponent extends React.Component {
 };
 
 // wrapper component for props's mapping
-const DropDownComponentWrapper = (props) => {
-  const { handlers, ...restProps } = props;
-  const selectedKey = props?.value != null ? props.value + "" : props.value
-  return <DropDownComponent {...restProps} selectedKey={selectedKey} onChange={handlers.dispatchChange} />
+class DropDownComponentWrapper extends React.Component {
+  render() {
+    const { handlers, ...restProps } = this.props;
+    const selectedKey = this.props?.value != null ? this.props.value + "" : this.props.value
+    return <DropDownComponent {...restProps} selectedKey={selectedKey} onChange={handlers.dispatchChange} />
+  }
 }
 // to get updated props
 const AdaptiveDropDown = withRuleEngine(DropDownComponentWrapper);

@@ -133,9 +133,11 @@ class TextFieldComponent extends React.Component {
 }
 
 // wrapper component for props's mapping
-const TextFieldComponentWrapper = (props) => {
-  const { handlers, ...restProps } = props;
-  return <TextFieldComponent {...restProps} onChange={handlers.dispatchChange} onBlur={handlers.dispatchChange} />
+class TextFieldComponentWrapper extends React.Component {
+  render() {
+    const { handlers, ...restProps } = this.props;
+    return <TextFieldComponent {...restProps} onChange={handlers.dispatchChange} onBlur={handlers.dispatchChange} />
+  }
 }
 // to get updated props
 const AdaptiveTextField = withRuleEngine(TextFieldComponentWrapper);

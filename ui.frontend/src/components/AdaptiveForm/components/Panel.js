@@ -15,9 +15,11 @@ class PanelComponent extends React.Component {
 }
 
 // wrapper component for props's mapping
-const PanelComponentWrapper = (props) => {
-  const { handlers, ...restProps } = props;
-  return <PanelComponent {...restProps} />
+class PanelComponentWrapper extends React.Component {
+  render() {
+    const { handlers, ...restProps } = this.props;
+    return <PanelComponent {...restProps} />
+  }
 }
 // to get updated props
 const AdaptivePanel = withRuleEngine(PanelComponentWrapper);
