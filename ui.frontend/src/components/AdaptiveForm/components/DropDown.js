@@ -1,53 +1,66 @@
-/* eslint-disable max-classes-per-file */
 import React from 'react';
-import { Select, Text, FormControl, FormLabel } from '@chakra-ui/react';
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import { MapTo } from '@adobe/aem-react-editable-components';
-import { withRuleEngine } from '../RuleEngineHook';
+import { useRuleEngine } from '@aemforms/af-react-renderer';
 
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    minWidth: 200,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
 // Customer's component
-// eslint-disable-next-line react/prefer-stateless-function
-class DropDownComponent extends React.Component {
-  changeHandler = (event) => {
-    this.props?.onChange(parseInt(event.target.value, 10));
+const DropDownComponent = (props) => {
+  const {
+    label, id, required, enumNames, enum: enums,
+    visible, errorMessage, value, onChange, description
+  } = props;
+  const dropdownData = enumNames && enumNames.length ? enumNames : enums || [];
+  const isVisible = typeof visible === 'undefined' || visible;
+  const classes = useStyles();
+
+  const changeHandler = (event) => {
+    onChange(parseInt(event.target.value, 10));
   };
 
-  render() {
-    const { label, id, required, enumNames, enum: enums, visible, errorMessage } = this.props;
-    const dropdownData = enumNames && enumNames.length ? enumNames : enums || [];
-    const isVisible = typeof visible === 'undefined' || visible;
-
-    return isVisible ? (
-        <FormControl isInvalid={errorMessage}>
-          <FormLabel htmlFor={id}>
-            {label.value} {label.value && required ? '*' : ''}
-          </FormLabel>
-          <Select onChange={this.changeHandler} size="lg" mt={2}>
-            {dropdownData?.length > 0
-                ? dropdownData.map((optionText, index) => (
-                    // eslint-disable-next-line react/no-array-index-key
-                    <option value={index + 1} key={index + 1}>
-                      {optionText}
-                    </option>
-                ))
-                : null}
-          </Select>
-          <Text mb="8px" color="crimson">
-            {errorMessage}
-          </Text>
-        </FormControl>
-    ) : null;
-  }
+  return isVisible ? (
+    <FormControl required={required} error={errorMessage ? true : false} className={classes.formControl}>
+      <InputLabel id={`${id}-label`}>{label?.value}</InputLabel>
+      <Select
+        labelId={`${id}-label`}
+        id={id}
+        value={value}
+        onChange={changeHandler}
+        displayEmpty
+        className={classes.selectEmpty}
+      >
+        {
+          dropdownData.map((text, index) => (
+            <MenuItem value={enums[index]} key={enums[index]}>{text}</MenuItem>
+          ))
+        }
+      </Select>
+      {errorMessage && <FormHelperText>{errorMessage}</FormHelperText>}
+      {description && !errorMessage && <FormHelperText>{description}</FormHelperText>}
+    </FormControl>
+  ) : null;
 }
 
 // wrapper component to wrap adaptive form capabilities
-// eslint-disable-next-line react/prefer-stateless-function
-class AdaptiveFormDropDown extends React.Component {
-  render() {
-    // during authoring, handlers won't be available to avoid overlap of editor and AF functionalities
-    const { handlers, ...restProps } = this.props;
-    const selectedKey = this.props?.value != null ? `${this.props.value}` : this.props.value;
-    return <DropDownComponent {...restProps} selectedKey={selectedKey} onChange={handlers?.dispatchChange} />;
-  }
+const AdaptiveFormDropDown = (props) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [state, handlers] = useRuleEngine(props);
+  const selectedKey = state?.value != null ? `${state.value}` : state.value;
+  return <DropDownComponent {...state} selectedKey={selectedKey} onChange={handlers?.dispatchChange} />;
 }
 const DropDownEditConfig = {
   emptyLabel: 'Drop Down',
@@ -55,4 +68,4 @@ const DropDownEditConfig = {
     return !props;
   },
 };
-export default MapTo('wknd-spa-react-latest/components/adaptiveForm/dropdown')(withRuleEngine(AdaptiveFormDropDown), DropDownEditConfig);
+export default MapTo('wknd-spa-react-latest/components/adaptiveForm/dropdown')(AdaptiveFormDropDown, DropDownEditConfig);

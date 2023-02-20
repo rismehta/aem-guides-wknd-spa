@@ -1,8 +1,6 @@
-/* eslint-disable max-classes-per-file */
-import { SimpleGrid } from '@chakra-ui/react';
 import React from 'react';
-import {MapTo, ResponsiveGrid} from '@adobe/aem-react-editable-components';
-import { withRuleEngine } from '../RuleEngineHook';
+import Grid from '@material-ui/core/Grid';
+import { MapTo, ResponsiveGrid } from '@adobe/aem-react-editable-components';
 
 const PanelEditConfig = {
   emptyLabel: 'Adaptive Form Panel',
@@ -12,23 +10,12 @@ const PanelEditConfig = {
 };
 
 // Customer's component
-// eslint-disable-next-line react/prefer-stateless-function
-class PanelComponent extends React.Component {
-  render() {
-    return (
-        <SimpleGrid columnGap={10} colorScheme="blue">
-          <ResponsiveGrid config={PanelEditConfig} {...this.props} />
-        </SimpleGrid>
-    );
-  }
+const PanelComponent = (props) => {
+  return (
+    <Grid container spacing={2}>
+      <div>{props?.label?.value}</div>
+      <ResponsiveGrid config={PanelEditConfig} {...props} />
+    </Grid>
+  );
 }
-
-// wrapper component to wrap adaptive form capabilities
-// eslint-disable-next-line react/prefer-stateless-function
-class AdaptiveFormPanel extends React.Component {
-  render() {
-    const { handlers, ...restProps } = this.props;
-    return <PanelComponent {...restProps} />;
-  }
-}
-export default MapTo('wknd-spa-react-latest/components/adaptiveForm/panelcontainer')(withRuleEngine(AdaptiveFormPanel), PanelEditConfig);
+export default MapTo('wknd-spa-react-latest/components/adaptiveForm/panelcontainer')(PanelComponent, PanelEditConfig);

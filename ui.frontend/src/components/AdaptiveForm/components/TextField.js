@@ -1,53 +1,42 @@
-/* eslint-disable max-classes-per-file */
-import React from 'react';
-import { Input, FormControl, FormLabel, Text, Tooltip, InputGroup, InputRightElement, Button } from '@chakra-ui/react';
+import React, { useState } from 'react';
 import { MapTo } from '@adobe/aem-react-editable-components';
-import { withRuleEngine } from '../RuleEngineHook';
+import { useRuleEngine } from '@aemforms/af-react-renderer';
 
-// Customer's component
-// eslint-disable-next-line react/prefer-stateless-function
-class InputGroupWrapper extends React.Component {
-  render() {
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    const { showPassword = false, inputTypePassword = false, handlerShowHidePassword = () => {}, size = 'lg', autoComplete = 'autoComplete', errorBorderColor = 'crimson' } = this.props;
-    const inputProps = {
-      ...this.props,
-      id: this.props.id,
-      size,
-      autoComplete,
-      errorBorderColor,
-      type: showPassword ? 'text' : 'password',
-    };
-    return inputTypePassword ? (
-        <InputGroup>
-          <Input {...inputProps} />
-          <InputRightElement width="4.5rem">
-            <Button h="1.75rem" size="sm" onClick={handlerShowHidePassword}>
-              {showPassword ? 'Hide' : 'Show'}
-            </Button>
-          </InputRightElement>
-        </InputGroup>
-    ) : (
-        <Input {...inputProps} />
-    );
+import { makeStyles } from "@material-ui/core/styles";
+import IconButton from "@material-ui/core/IconButton";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+
+
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    minWidth: 200,
   }
-}
+}));
 
-// eslint-disable-next-line react/prefer-stateless-function
-class TextFieldComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      show: false,
-    };
-  }
+const TextFieldComponent = (props) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const {
+    id, label, value, required, readOnly, properties, placeholder,
+    description, errorMessage, visible, format, onChange, onBlur, maxLength
+  } = props;
+  const { inputType } = properties || {};
+  const isVisible = typeof visible === 'undefined' || visible;
+  const isPassword = inputType === 'password';
+  const classes = useStyles();
 
-  handleClick = () => {
-    this.setState((prevState) => ({ show: !prevState.show }));
+  const handleClick = () => {
+    setShowPassword(!showPassword)
   };
 
-  keyChangeFn = (event) => {
-    const { format, properties, onChange } = this.props;
+  const keyChangeFn = (event) => {
     let thisVal = event?.target?.value;
     const textValLen = thisVal?.length;
 
@@ -76,70 +65,61 @@ class TextFieldComponent extends React.Component {
     onChange(thisVal);
   };
 
-  handleChange = (event) => {
-    const { maxLength } = this.props;
+  const handleChange = (event) => {
     const thisVal = event.target.value;
     if (maxLength && thisVal.length === maxLength + 1) {
       return;
     }
-    this.keyChangeFn(event);
+    keyChangeFn(event);
   };
 
-  handleKeyDown = (event) => {
-    this.keyChangeFn(event);
+  const handleKeyDown = (event) => {
+    keyChangeFn(event);
   };
 
-  handleBlur = (event) => {
-    this.props?.onBlur(event.target.value);
+  const handleBlur = (event) => {
+    onBlur(event.target.value);
   };
 
-  render() {
-    const { id, error, label, value, required, readOnly, properties, placeholder, description, errorMessage, visible } = this.props;
-    const { inputType } = properties || {};
-    const isVisible = typeof visible === 'undefined' || visible;
-    const checkIsValidField = errorMessage !== undefined ? errorMessage.length > 0 : false;
-    const { show } = this.state;
-    const inputProps = {
-      value,
-      onBlur: this.handleBlur,
-      isReadOnly: readOnly,
-      isRequired: required,
-      onChange: this.handleChange,
-      placeholder,
-      onKeyDown: this.handleKeyDown,
-      isInvalid: checkIsValidField,
-      handlerShowHidePassword: this.handleClick,
-      inputTypePassword: inputType === 'password',
-      showPassword: inputType === 'password' ? !!show : true,
-    };
-
-    return isVisible ? (
-        <FormControl isInvalid={error} mb={30}>
-          <FormLabel htmlFor={id}>
-            {label.value} {label.value && required ? '*' : ''}
-          </FormLabel>
-          {description?.length ? (
-              <Tooltip label={description}>
-                <InputGroupWrapper {...inputProps} />
-              </Tooltip>
-          ) : (
-              <InputGroupWrapper {...inputProps} />
-          )}
-          <Text mb="8px" color="crimson">
-            {errorMessage}
-          </Text>
-        </FormControl>
-    ) : null;
+  const getPasswordIcon = () => {
+    return (
+      <InputAdornment position="end">
+        <IconButton
+          aria-label="toggle password visibility"
+          onClick={handleClick}
+        >
+          {showPassword ? <Visibility /> : <VisibilityOff />}
+        </IconButton>
+      </InputAdornment>
+    )
   }
+
+  return isVisible ? (
+    <FormControl required={required} error={errorMessage ? true : false} className={classes.formControl}>
+      <InputLabel htmlFor={id}>{label?.value}</InputLabel>
+      <Input
+        id={id}
+        type={showPassword ? "text" : "password"}
+        value={value}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        onKeyDown={handleKeyDown}
+        endAdornment={isPassword ? getPasswordIcon() : null}
+        placeholder={placeholder}
+        required={required}
+        readOnly={readOnly}
+      />
+      {errorMessage && <FormHelperText>{errorMessage}</FormHelperText>}
+      {description && !errorMessage && <FormHelperText>{description}</FormHelperText>}
+    </FormControl>
+  ) : null;
 }
 
 // wrapper component to wrap adaptive form capabilities
-// eslint-disable-next-line react/prefer-stateless-function
-class AdaptiveFormTextInput extends React.Component {
-  render() {
-    const { handlers, ...restProps } = this.props;
-    return <TextFieldComponent {...restProps} onChange={handlers?.dispatchChange} onBlur={handlers?.dispatchChange} />;
-  }
+const AdaptiveFormTextInput = (props) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [state, handlers] = useRuleEngine(props);
+  return <TextFieldComponent {...state} onChange={handlers?.dispatchChange} onBlur={handlers?.dispatchChange} />;
 }
 const TextFieldEditConfig = {
   emptyLabel: 'Text Field',
@@ -147,4 +127,4 @@ const TextFieldEditConfig = {
     return !props;
   },
 };
-export default MapTo('wknd-spa-react-latest/components/adaptiveForm/textinput')(withRuleEngine(AdaptiveFormTextInput), TextFieldEditConfig);
+export default MapTo('wknd-spa-react-latest/components/adaptiveForm/textinput')(AdaptiveFormTextInput, TextFieldEditConfig);
