@@ -7,6 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { MapTo } from '@adobe/aem-react-editable-components';
 import { useRuleEngine } from '@aemforms/af-react-renderer';
+import {richTextString} from '../richTextString';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -50,7 +51,7 @@ const DropDownComponent = (props) => {
         }
       </Select>
       {errorMessage && <FormHelperText>{errorMessage}</FormHelperText>}
-      {description && !errorMessage && <FormHelperText>{description}</FormHelperText>}
+      {description && !errorMessage && <FormHelperText>{richTextString(description)}</FormHelperText>}
     </FormControl>
   ) : null;
 }

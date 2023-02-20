@@ -11,6 +11,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import {richTextString} from '../richTextString';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -99,7 +100,7 @@ const TextFieldComponent = (props) => {
       <InputLabel htmlFor={id}>{label?.value}</InputLabel>
       <Input
         id={id}
-        type={showPassword ? "text" : "password"}
+        type={showPassword ? "password" : "text"}
         value={value}
         onChange={handleChange}
         onBlur={handleBlur}
@@ -110,7 +111,7 @@ const TextFieldComponent = (props) => {
         readOnly={readOnly}
       />
       {errorMessage && <FormHelperText>{errorMessage}</FormHelperText>}
-      {description && !errorMessage && <FormHelperText>{description}</FormHelperText>}
+      {description && !errorMessage && <FormHelperText>{richTextString(description)}</FormHelperText>}
     </FormControl>
   ) : null;
 }
