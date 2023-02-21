@@ -1,6 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { MapTo, ResponsiveGrid } from '@adobe/aem-react-editable-components';
+import {withRuleEngine} from "../RuleEngineHook";
 
 const PanelEditConfig = {
   emptyLabel: 'Adaptive Form Panel',
@@ -18,4 +19,4 @@ const PanelComponent = (props) => {
     </Grid>
   );
 }
-export default MapTo('wknd-spa-react-latest/components/adaptiveForm/panelcontainer')(PanelComponent, PanelEditConfig);
+export default MapTo('wknd-spa-react-latest/components/adaptiveForm/panelcontainer')(withRuleEngine(PanelComponent), PanelEditConfig);
