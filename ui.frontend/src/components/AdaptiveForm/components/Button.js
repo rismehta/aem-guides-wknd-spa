@@ -1,20 +1,30 @@
 import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { MapTo } from '@adobe/aem-react-editable-components';
-import { useRuleEngine } from '@aemforms/af-react-renderer';
+import { withRuleEngine } from '../RuleEngineHook';
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2)
+  }
+}));
 
 // Customer's component
 const ButtonComponent = (props) => {
-  const { label, enabled, className, visible, onClick } = props;
+  const classes = useStyles();
+  const { label, enabled, visible, onClick } = props;
   const isVisible = typeof visible === 'undefined' || visible;
+  const isEnabled = enabled === false ? false : true;
   return isVisible ? (
     <Button
       variant="contained"
       color="primary"
       size="medium"
       onClick={onClick}
-      className={className}
-      disabled={!enabled}
+      className={classes.button}
+      disabled={!isEnabled}
     >
       {label?.value}
     </Button>
@@ -23,9 +33,8 @@ const ButtonComponent = (props) => {
 }
 
 // wrapper component to wrap adaptive form capabilities
-const AdaptiveFormButton =(props)=>{
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [state, handlers] = useRuleEngine(props);
+const AdaptiveFormButton = (props) => {
+  const { handlers, ...state } = props
   return <ButtonComponent {...state} onClick={handlers?.dispatchClick} />;
 }
 const ButtonEditConfig = {
@@ -34,4 +43,4 @@ const ButtonEditConfig = {
     return !props;
   },
 };
-export default MapTo('wknd-spa-react-latest/components/adaptiveForm/button')(AdaptiveFormButton, ButtonEditConfig);
+export default MapTo('wknd-spa-react-latest/components/adaptiveForm/button')(withRuleEngine(AdaptiveFormButton), ButtonEditConfig);

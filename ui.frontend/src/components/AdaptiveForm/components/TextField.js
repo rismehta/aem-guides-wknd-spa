@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { MapTo } from '@adobe/aem-react-editable-components';
-import { useRuleEngine } from '@aemforms/af-react-renderer';
 
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
@@ -11,7 +10,8 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import {richTextString} from '../richTextString';
+import { richTextString } from '../richTextString';
+import { withRuleEngine } from '../RuleEngineHook';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 const TextFieldComponent = (props) => {
   const [showPassword, setShowPassword] = useState(false);
   const {
-    id, label, value, required, readOnly, properties, placeholder,
+    id, label, value, required, readOnly = false, properties, placeholder,
     description, errorMessage, visible, format, onChange, onBlur, maxLength
   } = props;
   const { inputType } = properties || {};
@@ -118,8 +118,7 @@ const TextFieldComponent = (props) => {
 
 // wrapper component to wrap adaptive form capabilities
 const AdaptiveFormTextInput = (props) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [state, handlers] = useRuleEngine(props);
+  const { handlers, ...state } = props
   return <TextFieldComponent {...state} onChange={handlers?.dispatchChange} onBlur={handlers?.dispatchChange} />;
 }
 const TextFieldEditConfig = {
@@ -128,4 +127,5 @@ const TextFieldEditConfig = {
     return !props;
   },
 };
-export default MapTo('wknd-spa-react-latest/components/adaptiveForm/textinput')(AdaptiveFormTextInput, TextFieldEditConfig);
+
+export default MapTo('wknd-spa-react-latest/components/adaptiveForm/textinput')(withRuleEngine(AdaptiveFormTextInput), TextFieldEditConfig);

@@ -12,7 +12,7 @@ const PanelEditConfig = {
 // Customer's component
 const PanelComponent = (props) => {
   return (
-    <Grid container spacing={2}>
+    <Grid container>
       <div>{props?.label?.value}</div>
       <ResponsiveGrid config={PanelEditConfig} {...props} />
     </Grid>

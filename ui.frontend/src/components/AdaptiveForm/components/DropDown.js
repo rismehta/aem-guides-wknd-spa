@@ -6,8 +6,8 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { MapTo } from '@adobe/aem-react-editable-components';
-import { useRuleEngine } from '@aemforms/af-react-renderer';
-import {richTextString} from '../richTextString';
+import { withRuleEngine } from '../RuleEngineHook';
+import { richTextString } from '../richTextString';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -58,8 +58,7 @@ const DropDownComponent = (props) => {
 
 // wrapper component to wrap adaptive form capabilities
 const AdaptiveFormDropDown = (props) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [state, handlers] = useRuleEngine(props);
+  const { handlers, ...state } = props
   const selectedKey = state?.value != null ? `${state.value}` : state.value;
   return <DropDownComponent {...state} selectedKey={selectedKey} onChange={handlers?.dispatchChange} />;
 }
@@ -69,4 +68,4 @@ const DropDownEditConfig = {
     return !props;
   },
 };
-export default MapTo('wknd-spa-react-latest/components/adaptiveForm/dropdown')(AdaptiveFormDropDown, DropDownEditConfig);
+export default MapTo('wknd-spa-react-latest/components/adaptiveForm/dropdown')(withRuleEngine(AdaptiveFormDropDown), DropDownEditConfig);
