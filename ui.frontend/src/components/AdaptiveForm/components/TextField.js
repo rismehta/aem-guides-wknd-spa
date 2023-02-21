@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { MapTo } from '@adobe/aem-react-editable-components';
-
+import {isEmpty} from '@aemforms/af-core';
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import Input from "@material-ui/core/Input";
@@ -10,7 +10,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import { richTextString } from '../richTextString';
+import { richTextString, DEFAULT_ERROR_MESSAGE } from '../richTextString';
 import { withRuleEngine } from '../RuleEngineHook';
 
 
@@ -26,8 +26,12 @@ const TextFieldComponent = (props) => {
   const [showPassword, setShowPassword] = useState(false);
   const {
     id, label, value, required, readOnly = false, properties, placeholder,
-    description, errorMessage, visible, format, onChange, onBlur, maxLength
+    description , visible, format, onChange, onBlur, maxLength, valid
   } = props;
+  const errorMessage = props.errorMessage || DEFAULT_ERROR_MESSAGE;
+
+  const validateState = valid === false ? 'invalid' : ((valid === undefined  || isEmpty(value)) ? undefined : 'valid');
+  const error = validateState === 'invalid';
   const { inputType } = properties || {};
   const isVisible = typeof visible === 'undefined' || visible;
   const isPassword = inputType === 'password';
@@ -96,12 +100,12 @@ const TextFieldComponent = (props) => {
   }
 
   return isVisible ? (
-    <FormControl required={required} error={errorMessage ? true : false} className={classes.formControl}>
+    <FormControl required={required} error={error} className={classes.formControl}>
       <InputLabel htmlFor={id}>{label?.value}</InputLabel>
       <Input
         id={id}
         type={showPassword ? "password" : "text"}
-        value={value}
+        value={value || ''}
         onChange={handleChange}
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
@@ -110,8 +114,8 @@ const TextFieldComponent = (props) => {
         required={required}
         readOnly={readOnly}
       />
-      {errorMessage && <FormHelperText>{errorMessage}</FormHelperText>}
-      {description && !errorMessage && <FormHelperText>{richTextString(description)}</FormHelperText>}
+      {error && <FormHelperText>{errorMessage}</FormHelperText>}
+      {description && !error && <FormHelperText>{richTextString(description)}</FormHelperText>}
     </FormControl>
   ) : null;
 }

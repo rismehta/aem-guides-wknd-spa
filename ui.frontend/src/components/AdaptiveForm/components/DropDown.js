@@ -6,8 +6,9 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { MapTo } from '@adobe/aem-react-editable-components';
+import {isEmpty} from '@aemforms/af-core';
 import { withRuleEngine } from '../RuleEngineHook';
-import { richTextString } from '../richTextString';
+import { richTextString, DEFAULT_ERROR_MESSAGE } from '../richTextString';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -23,18 +24,22 @@ const useStyles = makeStyles((theme) => ({
 const DropDownComponent = (props) => {
   const {
     label, id, required, enumNames, enum: enums,
-    visible, errorMessage, value, onChange, description
+    visible, value, onChange, description, valid
   } = props;
+  const errorMessage = props.errorMessage || DEFAULT_ERROR_MESSAGE;
+  const validateState = valid === false ? 'invalid' : ((valid === undefined  || isEmpty(value)) ? undefined : 'valid');
+  const error = validateState === 'invalid';
+  
   const dropdownData = enumNames && enumNames.length ? enumNames : enums || [];
   const isVisible = typeof visible === 'undefined' || visible;
   const classes = useStyles();
 
   const changeHandler = (event) => {
-    onChange(parseInt(event.target.value, 10));
+    onChange(event.target.value);
   };
 
   return isVisible ? (
-    <FormControl required={required} error={errorMessage ? true : false} className={classes.formControl}>
+    <FormControl required={required} error={error} className={classes.formControl}>
       <InputLabel id={`${id}-label`}>{label?.value}</InputLabel>
       <Select
         labelId={`${id}-label`}
@@ -50,8 +55,8 @@ const DropDownComponent = (props) => {
           ))
         }
       </Select>
-      {errorMessage && <FormHelperText>{errorMessage}</FormHelperText>}
-      {description && !errorMessage && <FormHelperText>{richTextString(description)}</FormHelperText>}
+      {error && <FormHelperText>{errorMessage}</FormHelperText>}
+      {description && !error && <FormHelperText>{richTextString(description)}</FormHelperText>}
     </FormControl>
   ) : null;
 }
