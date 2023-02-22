@@ -4,6 +4,7 @@ import {isEmpty} from '@aemforms/af-core';
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import Input from "@material-ui/core/Input";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import FormHelperText from "@material-ui/core/FormHelperText";
@@ -26,9 +27,10 @@ const TextFieldComponent = (props) => {
   const [showPassword, setShowPassword] = useState(false);
   const {
     id, label, value, required, readOnly = false, properties, placeholder,
-    description , visible, format, onChange, onBlur, maxLength, valid
+    description , visible, format, onChange, onBlur, maxLength, valid, appliedCssClassNames
   } = props;
   const errorMessage = props.errorMessage || DEFAULT_ERROR_MESSAGE;
+
 
   const validateState = valid === false ? 'invalid' : ((valid === undefined  || isEmpty(value)) ? undefined : 'valid');
   const error = validateState === 'invalid';
@@ -99,10 +101,12 @@ const TextFieldComponent = (props) => {
     )
   }
 
+  const Cmp = 'outlined' === appliedCssClassNames ? OutlinedInput : Input;
+
   return isVisible ? (
     <FormControl required={required} error={error} className={classes.formControl}>
       <InputLabel htmlFor={id}>{label?.value}</InputLabel>
-      <Input
+      <Cmp
         id={id}
         type={showPassword ? "password" : "text"}
         value={value || ''}
