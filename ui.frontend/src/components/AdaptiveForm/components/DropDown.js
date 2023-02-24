@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 const DropDownComponent = (props) => {
   const {
     label, id, required, enumNames, enum: enums,
-    visible, value, onChange, description, valid
+    visible, value, onChange, description, valid, onBlur
   } = props;
   const errorMessage = props.errorMessage || DEFAULT_ERROR_MESSAGE;
   const validateState = valid === false ? 'invalid' : ((valid === undefined  || isEmpty(value)) ? undefined : 'valid');
@@ -38,6 +38,10 @@ const DropDownComponent = (props) => {
     onChange(event.target.value);
   };
 
+  const handleBlur = (event) => {
+    onBlur(event.target.value || '');
+  };
+
   return isVisible ? (
     <FormControl required={required} error={error} className={classes.formControl}>
       <InputLabel id={`${id}-label`}>{label?.value}</InputLabel>
@@ -46,6 +50,7 @@ const DropDownComponent = (props) => {
         id={id}
         value={value}
         onChange={changeHandler}
+        onBlur={handleBlur}
         displayEmpty
         className={classes.selectEmpty}
       >
@@ -65,7 +70,7 @@ const DropDownComponent = (props) => {
 const AdaptiveFormDropDown = (props) => {
   const { handlers, ...state } = props
   const selectedKey = state?.value != null ? `${state.value}` : state.value;
-  return <DropDownComponent {...state} selectedKey={selectedKey} onChange={handlers?.dispatchChange} />;
+  return <DropDownComponent {...state} selectedKey={selectedKey} onChange={handlers?.dispatchChange} onBlur={handlers?.dispatchChange} />;
 }
 const DropDownEditConfig = {
   emptyLabel: 'Drop Down',
