@@ -39,7 +39,7 @@ const CheckboxGroupComponent = (props) => {
     if (checked) {
       finalVal.push(val);
     }
-    const index = finalVal.findIndex((a) => a == val);
+    const index = finalVal.findIndex((a) => a === val);
     if (index !== -1 && !checked) {
       finalVal.splice(index, 1);
     }
