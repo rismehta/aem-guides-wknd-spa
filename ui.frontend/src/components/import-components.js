@@ -23,6 +23,8 @@ import './AdaptiveForm/components/Button';
 import './AdaptiveForm/components/DropDown';
 import './AdaptiveForm/components/Panel';
 import './AdaptiveForm/components/TextField';
+import './AdaptiveForm/components/RadioButton';
+import './AdaptiveForm/components/CheckboxGroup';
 
 import {MapTo} from '@adobe/aem-react-editable-components';
 
