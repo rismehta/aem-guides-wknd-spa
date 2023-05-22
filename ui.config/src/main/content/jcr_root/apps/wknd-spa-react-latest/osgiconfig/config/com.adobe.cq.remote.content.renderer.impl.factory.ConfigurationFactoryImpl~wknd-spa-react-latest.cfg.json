@@ -1,0 +1,9 @@
+{
+    "getContentPathPattern": "/content/wknd-spa-react-latest/(.*)|/conf/wknd-spa-react-latest/(.*)/settings/wcm/templates/(.*)",
+    "getRemoteHTMLRendererUrl" : "http://localhost:3233/api/v1/web/guest/wknd-spa-react-latest-0.1.0/ssr",
+    "getRequestTimeout": 10000,
+    "getAdditionalRequestHeaders": [
+
+    ],
+    "getCompression": "none"
+}

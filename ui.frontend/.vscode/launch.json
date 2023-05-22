@@ -1,0 +1,33 @@
+{
+  "configurations": [
+    {
+      "type": "node",
+      "name": "Action:wknd-spa-react-latest-0.1.0/ssr",
+      "request": "launch",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/wskdebug",
+      "envFile": "${workspaceFolder}//Users/rismehta/aem-guides-wknd-spa-react-latest/ui.frontend/dist/application/.env.local",
+      "timeout": 30000,
+      "killBehavior": "polite",
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "/code",
+      "outputCapture": "std",
+      "attachSimplePort": 0,
+      "runtimeArgs": [
+        "wknd-spa-react-latest-0.1.0/ssr",
+        "${workspaceFolder}/actions/ssr/index.js",
+        "-v",
+        "--disable-concurrency",
+        "--kind",
+        "nodejs:10"
+      ]
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Actions",
+      "configurations": [
+        "Action:wknd-spa-react-latest-0.1.0/ssr"
+      ]
+    }
+  ]
+}

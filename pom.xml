@@ -84,7 +84,9 @@
     <aem.sdk.api>2023.1.10912.20230130T173736Z-220900</aem.sdk.api>
             
     <aemanalyser.version>1.4.10</aemanalyser.version>
-            
+
+    <aio.runtime.namespace>${env.AIO_RUNTIME_NAMESPACE}</aio.runtime.namespace>
+    <aio.runtime.auth>${env.AIO_RUNTIME_AUTH}</aio.runtime.auth>
     <componentGroupName>WKND SPA React Latest</componentGroupName>
 
     <!-- AEM Forms specific settings -->
@@ -266,7 +268,7 @@
                                           
               <configuration>
                                               
-                <arguments>ci</arguments>
+                <arguments>install</arguments>
                                             
               </configuration>
                                       
